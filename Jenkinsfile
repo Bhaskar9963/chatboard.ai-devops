@@ -1,7 +1,7 @@
 pipeline{
     agent any
     tools{
-        jdk 'jdk17'
+        jdk 'JDK17'
         nodejs 'node19'
     }
     environment {
@@ -49,8 +49,8 @@ pipeline{
                 script{
                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){
                        sh "docker build -t chatbot ."
-                       sh "docker tag chatbot mohanmahaa/chatbot:latest "
-                       sh "docker push mohanmahaa/chatbot:latest "
+                       sh "docker tag chatbot mohanmaha/chatbot:latest "
+                       sh "docker push mohanmaha/chatbot:latest "
                     }
                 }
             }
