@@ -10,7 +10,7 @@ pipeline{
     stages {
         stage('Checkout from Git'){
             steps{
-                git branch: 'legacy', url: 'https://github.com/vijaygiduthuri/chatbot-ui.git'
+                git branch: 'legacy', url: 'https://github.com/mohanmahaa/chatbot-ui.git'
             }
         }
         stage('Install Dependencies') {
@@ -49,20 +49,20 @@ pipeline{
                 script{
                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){
                        sh "docker build -t chatbot ."
-                       sh "docker tag chatbot vijaygiduthuri/chatbot:latest "
-                       sh "docker push vijaygiduthuri/chatbot:latest "
+                       sh "docker tag chatbot mohanmahaa/chatbot:latest "
+                       sh "docker push mohanmahaa/chatbot:latest "
                     }
                 }
             }
         }
         stage("TRIVY"){
             steps{
-                sh "trivy image vijaygiduthuri/chatbot:latest > trivy.json"
+                sh "trivy image mohanmahaa/chatbot:latest > trivy.json"
             }
         }
         stage('Deploy to container'){
             steps{
-                sh 'docker run -d --name chat -p 3000:3000 vijaygiduthuri/chatbot:latest'
+                sh 'docker run -d --name chat -p 3000:3000 mohanmahaa/chatbot:latest'
             }
         }
         stage('Deploy to kubernets'){
